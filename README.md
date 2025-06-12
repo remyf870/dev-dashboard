@@ -138,6 +138,7 @@ git push --set-upstream origin your-branch-name
 Example: git push --set-upstream origin feat/ChangeREADME
 
 This uploads your branch to the GitHub repo.
+You only need to do this once before opening a pull request.
 
 ---
 
