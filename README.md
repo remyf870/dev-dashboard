@@ -18,7 +18,7 @@ Our first build is a **Trello-like project management board**. This foundational
 - ### Phase 4: Dev Resources Hub
 - ### Phase 5: ???
 
-### Core Tech Stack
+## Core Tech Stack
 
 - **Frontend:** HTML, CSS, JavaScript
 - **Backend & Database:** Firebase (Authentication + Firestore)
