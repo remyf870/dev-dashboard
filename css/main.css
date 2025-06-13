@@ -1,0 +1,17 @@
+/* css/main.css */
+
+/* Import main theme */
+@import url("theme.css");
+
+/* Import CSS Components */
+@import url("login-page.css");
+@import url("board-layout.css");
+@import url("components.css");
+
+/* Use Global Styles Here  */
+
+body {
+  font-family: var(--font-family-main);
+  background-color: var(--color-background);
+  margin: 0;
+}
