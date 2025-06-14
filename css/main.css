@@ -1,5 +1,8 @@
 /* css/main.css */
 
+/* Please don't change the order of these import CSS files
+   They must be drawn in this order to work properly */
+
 /* Import main theme */
 @import url("theme.css");
 
