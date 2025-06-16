@@ -32,7 +32,7 @@ This project is made possible by these awesome contributors.
 
 ### UI/UX & Design Team
 
-- **Replace Name** - [Github Username](https://www.github.com/username)
+- **Remy Francis** (UI/UX Lead) - [remyf870](https://www.github.com/remyf870)
 
 ### App Logic & Backend Team
 
