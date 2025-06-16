@@ -68,7 +68,7 @@ git config --global user.email "your.email@example.com"
 
 ### Part 2: Core Vocabulary
 
-| Term                  | Meaning                                                                                     |
+| Term                  | Description                                                                                 |
 | --------------------- | ------------------------------------------------------------------------------------------- |
 | **Repository (Repo)** | A folder with your project code + its full change history.                                  |
 | **Commit**            | A snapshot of your code. Like a save point with a message.                                  |
