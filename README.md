@@ -34,8 +34,6 @@ This project is made possible by these awesome contributors.
 
 - **Replace Name** - [Github Username](https://www.github.com/username)
 - **Remy Francis** (UI/UX Lead) - [remyf870](https://www.github.com/remyf870)
-- **Luis Sagnay** - [luis-sagx](https://www.github.com/luis-sagx)
-
 - **Luis Sagnay** (UI/UX Lead) - [luis-sagx](https://www.github.com/luis-sagx)
 
 ### App Logic & Backend Team
