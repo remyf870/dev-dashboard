@@ -26,6 +26,20 @@ Our first build is a **Trello-like project management board**. This foundational
 
 ---
 
+## Project Team
+
+This project is made possible by these awesome contributors.
+
+### UI/UX & Design Team
+
+- **Replace Name** - [Github Username](https://www.github.com/username)
+
+### App Logic & Backend Team
+
+- **Trevor Browning** (Project Lead) - [TrevorBrowning](https://github.com/trevorbrowning)
+
+---
+
 ## Git & GitHub Basics for Beginners
 
 If you're new to Git or GitHub, start here! This guide walks you through setup, concepts, and our contribution workflow.
