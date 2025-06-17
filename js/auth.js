@@ -9,6 +9,8 @@ import {
   onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
+import { showAppView, showLogInView } from "./ui.js";
+
 export async function signInWithGitHub() {
   const provider = new GithubAuthProvider();
   try {
@@ -31,6 +33,7 @@ export function setupAuthListeners() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is signed in, log to console
+      showAppView();
       console.log(
         "Auth state changed - User is now logged in.",
         user.displayName,
@@ -38,6 +41,7 @@ export function setupAuthListeners() {
       );
     } else {
       // User is not signed in, log to console
+      showLogInView();
       console.log("Auth state changed - No user is logged in.");
     }
   });
