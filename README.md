@@ -37,7 +37,7 @@ This project is made possible by these awesome contributors.
 ### App Logic & Backend Team
 
 - **Trevor Browning** (Project Lead) - [TrevorBrowning](https://github.com/trevorbrowning)
-
+- **Prince Akakpo** - [pope](https://github.com/thesyntaxdude)
 ---
 
 ## Git & GitHub Basics for Beginners
