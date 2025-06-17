@@ -1,2 +1,18 @@
 // js/ui.js
-// All functions that manipulate the DOM and update the UI will go here.
+
+// Import Functions
+import { signInWithGitHub, logout } from "./auth.js";
+
+// Setup Button Event Listeners (Placeholder - backend-test.html)
+
+export function setupUIEventListeners() {
+  const testLoginBtn = document.getElementById("test-login-button");
+  if (testLoginBtn) {
+    testLoginBtn.addEventListener("click", signInWithGitHub);
+  }
+
+  const testLogoutBtn = document.getElementById("test-logout-button");
+  if (testLogoutBtn) {
+    testLogoutBtn.addEventListener("click", logout);
+  }
+}
