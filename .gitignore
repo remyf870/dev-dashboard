@@ -137,3 +137,7 @@ dist
 
 # Firebase config
 js/firebase-config.js
+
+# Backend Test Files
+backend-test.html
+board-test.html
