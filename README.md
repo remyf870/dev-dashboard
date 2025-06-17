@@ -38,6 +38,7 @@ This project is made possible by these awesome contributors.
 
 - **Trevor Browning** (Project Lead) - [TrevorBrowning](https://github.com/trevorbrowning)
 - **Prince Akakpo** - [pope](https://github.com/thesyntaxdude)
+- **Chandan Vomjan** [IAmGOD](https://github.com/learnednp)
 ---
 
 ## Git & GitHub Basics for Beginners
