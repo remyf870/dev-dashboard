@@ -43,3 +43,37 @@ export function showLogInView() {
   const appSect = (document.getElementById("app-section").style.display =
     "none");
 }
+
+// Create Task Cards and Render on Project Board
+export function renderTasks(tasks) {
+  console.log("Render Tasks", tasks);
+  document.getElementById("todo-card-container").innerHTML = "";
+  document.getElementById("ongoing-card-container").innerHTML = "";
+  document.getElementById("completed-card-container").innerHTML = "";
+  tasks.forEach((task) => {
+    const cardElement = document.createElement("div");
+    cardElement.className = "task-card";
+
+    const titleElement = document.createElement("h3");
+    titleElement.textContent = task.title;
+
+    const deleteElement = document.createElement("button");
+    deleteElement.className = "delete-button";
+    deleteElement.textContent = "X";
+
+    cardElement.appendChild(titleElement);
+    cardElement.appendChild(deleteElement);
+
+    if (task.status == "todo") {
+      document.getElementById("todo-card-container").appendChild(cardElement);
+    } else if (task.status == "ongoing") {
+      document
+        .getElementById("ongoing-card-container")
+        .appendChild(cardElement);
+    } else if (task.status == "completed") {
+      document
+        .getElementById("completed-card-container")
+        .appendChild(cardElement);
+    }
+  });
+}
