@@ -11,6 +11,8 @@ import {
 
 import { showAppView, showLogInView } from "./ui.js";
 
+import { setupFirestoreListeners } from "./firestore.js";
+
 export async function signInWithGitHub() {
   const provider = new GithubAuthProvider();
   try {
@@ -33,15 +35,16 @@ export function setupAuthListeners() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is signed in, log to console
-      showAppView();
+      //showAppView();
       console.log(
         "Auth state changed - User is now logged in.",
         user.displayName,
         user.uid
       );
+      setupFirestoreListeners();
     } else {
       // User is not signed in, log to console
-      showLogInView();
+      //showLogInView();
       console.log("Auth state changed - No user is logged in.");
     }
   });
