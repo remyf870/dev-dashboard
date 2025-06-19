@@ -2,7 +2,7 @@
 
 // Import Functions
 import { signInWithGitHub, logout } from "./auth.js";
-import { addTask } from "./firestore.js";
+import { addTask, updateTaskStatus } from "./firestore.js";
 
 // Setup Button Event Listeners (Placeholder - backend-test.html)
 
@@ -53,6 +53,7 @@ export function renderTasks(tasks) {
   tasks.forEach((task) => {
     const cardElement = document.createElement("div");
     cardElement.className = "task-card";
+    cardElement.dataset.id = task.id;
 
     const titleElement = document.createElement("h3");
     titleElement.textContent = task.title;
@@ -77,3 +78,66 @@ export function renderTasks(tasks) {
     }
   });
 }
+
+// Drag and Drop Functionality
+
+const todoColumn = document.getElementById("todo-card-container");
+const ongoingColumn = document.getElementById("ongoing-card-container");
+const completedColumn = document.getElementById("completed-card-container");
+
+// To-Do Column Drag/Drop
+new Sortable(todoColumn, {
+  group: "shared",
+  onEnd: function (event) {
+    const taskId = event.item.dataset.id;
+    let newStatus = "";
+    if (event.to.id === "todo-card-container") {
+      newStatus = "todo";
+    } else if (event.to.id === "ongoing-card-container") {
+      newStatus = "ongoing";
+    } else if (event.to.id === "completed-card-container") {
+      newStatus = "completed";
+    }
+    if (newStatus) {
+      updateTaskStatus(taskId, newStatus);
+    }
+  },
+});
+
+// Ongoing Drag/Drop
+new Sortable(ongoingColumn, {
+  group: "shared",
+  onEnd: function (event) {
+    const taskId = event.item.dataset.id;
+    let newStatus = "";
+    if (event.to.id === "todo-card-container") {
+      newStatus = "todo";
+    } else if (event.to.id === "ongoing-card-container") {
+      newStatus = "ongoing";
+    } else if (event.to.id === "completed-card-container") {
+      newStatus = "completed";
+    }
+    if (newStatus) {
+      updateTaskStatus(taskId, newStatus);
+    }
+  },
+});
+
+// Completed Drag/Drop
+new Sortable(completedColumn, {
+  group: "shared",
+  onEnd: function (event) {
+    const taskId = event.item.dataset.id;
+    let newStatus = "";
+    if (event.to.id === "todo-card-container") {
+      newStatus = "todo";
+    } else if (event.to.id === "ongoing-card-container") {
+      newStatus = "ongoing";
+    } else if (event.to.id === "completed-card-container") {
+      newStatus = "completed";
+    }
+    if (newStatus) {
+      updateTaskStatus(taskId, newStatus);
+    }
+  },
+});
