@@ -5,8 +5,9 @@ import {
   collection,
   addDoc,
   onSnapshot,
+  deleteDoc,
   doc,
-  updateDoc,
+  updateDoc
 } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 import { db } from "./firebase.js";
 
@@ -43,8 +44,13 @@ export function setupFirestoreListeners() {
   });
 }
 
-// Update Task Status - Firestore
-export async function updateTaskStatus(taskId, newStatus) {
-  const taskRef = doc(db, "tasks", taskId);
-  updateDoc(taskRef, { status: newStatus });
+// Function to delete a task by ID
+export async function deleteTask(taskId, taskTitle) {
+  try {
+    const taskRef = doc(db, "tasks", taskId);
+    await deleteDoc(taskRef);
+    console.log(`Task "${taskTitle}" (ID: ${taskId}) deleted successfully.`);
+  } catch (error) {
+    console.error("Error deleting task:", error);
+  }
 }

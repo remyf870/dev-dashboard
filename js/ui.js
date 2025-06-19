@@ -2,7 +2,7 @@
 
 // Import Functions
 import { signInWithGitHub, logout } from "./auth.js";
-import { addTask, updateTaskStatus } from "./firestore.js";
+import { addTask, deleteTask, updateTaskStatus } from "./firestore.js";
 
 // Setup Button Event Listeners (Placeholder - backend-test.html)
 
@@ -17,7 +17,7 @@ export function setupUIEventListeners() {
     testLogoutBtn.addEventListener("click", logout);
   }
 
-  // Event Listner for form submit button - saves task
+  // Event Listener for form submit button - saves task
   const saveTask = document.getElementById("submit-data");
   if (saveTask) {
     saveTask.addEventListener("submit", (event) => {
@@ -45,99 +45,128 @@ export function showLogInView() {
 }
 
 // Create Task Cards and Render on Project Board
+
+let deleteTaskId = null;
+let deleteTaskTitle = null;
+
 export function renderTasks(tasks) {
-  console.log("Render Tasks", tasks);
-  document.getElementById("todo-card-container").innerHTML = "";
-  document.getElementById("ongoing-card-container").innerHTML = "";
-  document.getElementById("completed-card-container").innerHTML = "";
+  const todoContainer = document.getElementById("todo-card-container");
+  const ongoingContainer = document.getElementById("ongoing-card-container");
+  const completedContainer = document.getElementById(
+    "completed-card-container"
+  );
+
+  // Clear containers
+  todoContainer.innerHTML = "";
+  ongoingContainer.innerHTML = "";
+  completedContainer.innerHTML = "";
+
   tasks.forEach((task) => {
-    const cardElement = document.createElement("div");
-    cardElement.className = "task-card";
-    cardElement.dataset.id = task.id;
+    const card = document.createElement("div");
+    card.classList.add("task-card");
 
-    const titleElement = document.createElement("h3");
-    titleElement.textContent = task.title;
+    const title = document.createElement("h3");
+    title.textContent = task.title;
 
-    const deleteElement = document.createElement("button");
-    deleteElement.className = "delete-button";
-    deleteElement.textContent = "X";
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("delete-button");
+    deleteBtn.textContent = "❌"; // decided to go with an emoji here
+    deleteBtn.addEventListener("click", () => {
+      // Set task data to be deleted
+      deleteTaskId = task.id;
+      deleteTaskTitle = task.title;
+      // Show modal
+      showDeleteModal(task.title);
+    });
 
-    cardElement.appendChild(titleElement);
-    cardElement.appendChild(deleteElement);
+    card.appendChild(title);
+    card.appendChild(deleteBtn);
 
-    if (task.status == "todo") {
-      document.getElementById("todo-card-container").appendChild(cardElement);
-    } else if (task.status == "ongoing") {
-      document
-        .getElementById("ongoing-card-container")
-        .appendChild(cardElement);
-    } else if (task.status == "completed") {
-      document
-        .getElementById("completed-card-container")
-        .appendChild(cardElement);
-    }
+    // Show task details when clicking the card (excluding the delete button)
+    card.addEventListener("click", (event) => {
+      // Prevent click event if delete button is clicked
+      if (event.target.classList.contains("delete-button")) return;
+
+      showTaskDetailsModal(task);
+    });
+
+    const container = getContainerByStatus(task.status);
+    container.appendChild(card);
   });
 }
 
-// Drag and Drop Functionality
+function getContainerByStatus(status) {
+  switch (status) {
+    case "todo":
+      return document.getElementById("todo-card-container");
+    case "inprogress":
+    case "ongoing":
+      return document.getElementById("ongoing-card-container");
+    case "done":
+    case "completed":
+      return document.getElementById("completed-card-container");
+    default:
+      return document.getElementById("todo-card-container");
+  }
+}
 
-const todoColumn = document.getElementById("todo-card-container");
-const ongoingColumn = document.getElementById("ongoing-card-container");
-const completedColumn = document.getElementById("completed-card-container");
+function showDeleteModal(title) {
+  const modal = document.getElementById("delete-modal");
+  const message = document.getElementById("delete-message");
+  message.textContent = `Are you sure you want to delete "${title}"?`;
+  modal.style.display = "flex";
+}
 
-// To-Do Column Drag/Drop
-new Sortable(todoColumn, {
-  group: "shared",
-  onEnd: function (event) {
-    const taskId = event.item.dataset.id;
-    let newStatus = "";
-    if (event.to.id === "todo-card-container") {
-      newStatus = "todo";
-    } else if (event.to.id === "ongoing-card-container") {
-      newStatus = "ongoing";
-    } else if (event.to.id === "completed-card-container") {
-      newStatus = "completed";
-    }
-    if (newStatus) {
-      updateTaskStatus(taskId, newStatus);
-    }
-  },
+function hideDeleteModal() {
+  const modal = document.getElementById("delete-modal");
+  modal.style.display = "none";
+}
+
+document.getElementById("confirm-delete-btn").addEventListener("click", () => {
+  if (deleteTaskId) {
+    deleteTask(deleteTaskId, deleteTaskTitle);
+    deleteTaskId = null;
+    deleteTaskTitle = null;
+    hideDeleteModal();
+  }
 });
 
-// Ongoing Drag/Drop
-new Sortable(ongoingColumn, {
-  group: "shared",
-  onEnd: function (event) {
-    const taskId = event.item.dataset.id;
-    let newStatus = "";
-    if (event.to.id === "todo-card-container") {
-      newStatus = "todo";
-    } else if (event.to.id === "ongoing-card-container") {
-      newStatus = "ongoing";
-    } else if (event.to.id === "completed-card-container") {
-      newStatus = "completed";
-    }
-    if (newStatus) {
-      updateTaskStatus(taskId, newStatus);
-    }
-  },
+document.getElementById("cancel-delete-btn").addEventListener("click", () => {
+  deleteTaskId = null;
+  deleteTaskTitle = null;
+  hideDeleteModal();
 });
 
-// Completed Drag/Drop
-new Sortable(completedColumn, {
-  group: "shared",
-  onEnd: function (event) {
-    const taskId = event.item.dataset.id;
-    let newStatus = "";
-    if (event.to.id === "todo-card-container") {
-      newStatus = "todo";
-    } else if (event.to.id === "ongoing-card-container") {
-      newStatus = "ongoing";
-    } else if (event.to.id === "completed-card-container") {
-      newStatus = "completed";
-    }
-    if (newStatus) {
-      updateTaskStatus(taskId, newStatus);
-    }
-  },
-});
+document
+  .getElementById("close-task-details-btn")
+  .addEventListener("click", hideTaskDetailsModal);
+
+// show tasks details on click
+function showTaskDetailsModal(task) {
+  const modal = document.getElementById("task-details-modal");
+
+  document.getElementById("task-title").textContent =
+    task.title || "Untitled Task";
+  document.getElementById("task-desc").textContent = `Description: ${
+    task.description || "None"
+  }`;
+  document.getElementById("task-created").textContent = `Created: ${formatDate(
+    task.createdAt
+  )}`;
+  document.getElementById("task-status").textContent = `Status: ${task.status}`;
+
+  modal.style.display = "flex";
+}
+
+function hideTaskDetailsModal() {
+  document.getElementById("task-details-modal").style.display = "none";
+}
+
+function formatDate(timestamp) {
+  try {
+    const date = timestamp.toDate();
+    return date.toLocaleString();
+  } catch (e) {
+    return "Unknown date";
+  }
+}
