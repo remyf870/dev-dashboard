@@ -82,6 +82,14 @@ export function renderTasks(tasks) {
     card.appendChild(title);
     card.appendChild(deleteBtn);
 
+    // Show task details when clicking the card (excluding the delete button)
+    card.addEventListener("click", (event) => {
+      // Prevent click event if delete button is clicked
+      if (event.target.classList.contains("delete-button")) return;
+
+      showTaskDetailsModal(task);
+    });
+
     const container = getContainerByStatus(task.status);
     container.appendChild(card);
   });
@@ -128,3 +136,37 @@ document.getElementById("cancel-delete-btn").addEventListener("click", () => {
   deleteTaskTitle = null;
   hideDeleteModal();
 });
+
+document
+  .getElementById("close-task-details-btn")
+  .addEventListener("click", hideTaskDetailsModal);
+
+// show tasks details on click
+function showTaskDetailsModal(task) {
+  const modal = document.getElementById("task-details-modal");
+
+  document.getElementById("task-title").textContent =
+    task.title || "Untitled Task";
+  document.getElementById("task-desc").textContent = `Description: ${
+    task.description || "None"
+  }`;
+  document.getElementById("task-created").textContent = `Created: ${formatDate(
+    task.createdAt
+  )}`;
+  document.getElementById("task-status").textContent = `Status: ${task.status}`;
+
+  modal.style.display = "flex";
+}
+
+function hideTaskDetailsModal() {
+  document.getElementById("task-details-modal").style.display = "none";
+}
+
+function formatDate(timestamp) {
+  try {
+    const date = timestamp.toDate();
+    return date.toLocaleString();
+  } catch (e) {
+    return "Unknown date";
+  }
+}
