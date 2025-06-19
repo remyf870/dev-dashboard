@@ -2,7 +2,7 @@
 
 // Import Functions
 import { signInWithGitHub, logout } from "./auth.js";
-import { addTask } from "./firestore.js";
+import { addTask, deleteTask } from "./firestore.js";
 
 // Setup Button Event Listeners (Placeholder - backend-test.html)
 
@@ -17,7 +17,7 @@ export function setupUIEventListeners() {
     testLogoutBtn.addEventListener("click", logout);
   }
 
-  // Event Listner for form submit button - saves task
+  // Event Listener for form submit button - saves task
   const saveTask = document.getElementById("submit-data");
   if (saveTask) {
     saveTask.addEventListener("submit", (event) => {
@@ -50,6 +50,7 @@ export function renderTasks(tasks) {
   document.getElementById("todo-card-container").innerHTML = "";
   document.getElementById("ongoing-card-container").innerHTML = "";
   document.getElementById("completed-card-container").innerHTML = "";
+
   tasks.forEach((task) => {
     const cardElement = document.createElement("div");
     cardElement.className = "task-card";
@@ -60,6 +61,14 @@ export function renderTasks(tasks) {
     const deleteElement = document.createElement("button");
     deleteElement.className = "delete-button";
     deleteElement.textContent = "X";
+
+    // ✅ Add delete event listener
+    deleteElement.addEventListener("click", () => {
+      const confirmDelete = confirm(`Delete task "${task.title}"?`);
+      if (confirmDelete) {
+        deleteTask(task.id, task.title);
+      }
+    });
 
     cardElement.appendChild(titleElement);
     cardElement.appendChild(deleteElement);
