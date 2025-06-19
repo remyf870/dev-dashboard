@@ -5,6 +5,8 @@ import {
   collection,
   addDoc,
   onSnapshot,
+  doc,
+  updateDoc,
 } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 import { db } from "./firebase.js";
 
@@ -39,4 +41,10 @@ export function setupFirestoreListeners() {
     }
     renderTasks(tasksList);
   });
+}
+
+// Update Task Status - Firestore
+export async function updateTaskStatus(taskId, newStatus) {
+  const taskRef = doc(db, "tasks", taskId);
+  updateDoc(taskRef, { status: newStatus });
 }
