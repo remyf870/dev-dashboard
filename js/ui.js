@@ -64,6 +64,7 @@ export function renderTasks(tasks) {
   tasks.forEach((task) => {
     const card = document.createElement("div");
     card.classList.add("task-card");
+    card.dataset.id = task.id;
 
     const title = document.createElement("h3");
     title.textContent = task.title;
@@ -170,3 +171,66 @@ function formatDate(timestamp) {
     return "Unknown date";
   }
 }
+
+// Drag and Drop Functionality
+
+const todoColumn = document.getElementById("todo-card-container");
+const ongoingColumn = document.getElementById("ongoing-card-container");
+const completedColumn = document.getElementById("completed-card-container");
+
+// To-Do Column Drag/Drop
+new Sortable(todoColumn, {
+  group: "shared",
+  onEnd: function (event) {
+    const taskId = event.item.dataset.id;
+    let newStatus = "";
+    if (event.to.id === "todo-card-container") {
+      newStatus = "todo";
+    } else if (event.to.id === "ongoing-card-container") {
+      newStatus = "ongoing";
+    } else if (event.to.id === "completed-card-container") {
+      newStatus = "completed";
+    }
+    if (newStatus) {
+      updateTaskStatus(taskId, newStatus);
+    }
+  },
+});
+
+// Ongoing Drag/Drop
+new Sortable(ongoingColumn, {
+  group: "shared",
+  onEnd: function (event) {
+    const taskId = event.item.dataset.id;
+    let newStatus = "";
+    if (event.to.id === "todo-card-container") {
+      newStatus = "todo";
+    } else if (event.to.id === "ongoing-card-container") {
+      newStatus = "ongoing";
+    } else if (event.to.id === "completed-card-container") {
+      newStatus = "completed";
+    }
+    if (newStatus) {
+      updateTaskStatus(taskId, newStatus);
+    }
+  },
+});
+
+// Completed Drag/Drop
+new Sortable(completedColumn, {
+  group: "shared",
+  onEnd: function (event) {
+    const taskId = event.item.dataset.id;
+    let newStatus = "";
+    if (event.to.id === "todo-card-container") {
+      newStatus = "todo";
+    } else if (event.to.id === "ongoing-card-container") {
+      newStatus = "ongoing";
+    } else if (event.to.id === "completed-card-container") {
+      newStatus = "completed";
+    }
+    if (newStatus) {
+      updateTaskStatus(taskId, newStatus);
+    }
+  },
+});
