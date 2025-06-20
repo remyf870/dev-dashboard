@@ -30,16 +30,73 @@
           </div>
           <div class="navbar-menu">
             <nav class="nav-section">
-              <a href="#" class="active">Trello</a>
-              <a href="#">Whiteboard</a>
+              <a href="#" class="nav-link active">Trello</a>
+              <a href="#" class="nav-link">Whiteboard</a>
             </nav>
+            <script>
+              const navLinks = document.querySelectorAll(".nav-link");
+              const boardTitle = document.getElementById("board-title");
+              navLinks.forEach((link) => {
+                link.addEventListener("click", (e) => {
+                  // Remove 'active' class from all links
+                  navLinks.forEach((l) => l.classList.remove("active"));
+
+                  // Add 'active' class to the clicked link
+                  e.target.classList.add("active");
+                });
+              });
+            </script>
             <div class="nav-section">
               <button id="add-task">
                 <i class="fa-regular fa-pen-to-square"></i> Add Task
               </button>
             </div>
             <div class="navbar-right nav-section">
-              <button class="icon-btn rainbow"></button>
+              <label class="theme-switch">
+                <input type="checkbox" id="darkModeToggle" />
+                <span class="slider">
+                  <span class="icon-container" id="themeIcon">
+                    <!-- Default icon: sun -->
+                    <img src="assets/sun-2-svgrepo-com.svg" alt="Sun Icon" />
+                  </span>
+                </span>
+              </label>
+              <script>
+                const toggle = document.getElementById("darkModeToggle");
+                const themeIcon = document.getElementById("themeIcon");
+
+                function updateIconContent(isDark) {
+                  if (isDark) {
+                    themeIcon.innerHTML = `<img src="assets/moon-stars-svgrepo-com.svg" alt="Moon Icon" width="20" height="20" />`;
+                  } else {
+                    themeIcon.innerHTML = `<img src="assets/sun-2-svgrepo-com.svg" alt="Sun Icon" width="20" height="20" />`;
+                  }
+                }
+
+                // Set initial icon state on load
+                updateIconContent(toggle.checked);
+
+                toggle.addEventListener("change", () => {
+                  // Hide icon immediately
+                  themeIcon.style.opacity = "0";
+
+                  setTimeout(() => {
+                    // Update mode class
+                    if (toggle.checked) {
+                      document.body.classList.add("dark-mode");
+                    } else {
+                      document.body.classList.remove("dark-mode");
+                    }
+
+                    // Update icon content
+                    updateIconContent(toggle.checked);
+
+                    // Fade icon back in
+                    themeIcon.style.opacity = "1";
+                  }, 400);
+                });
+              </script>
+
               <button class="logout-btn">
                 <i class="fa-solid fa-right-from-bracket"></i> Log Out
               </button>
@@ -77,7 +134,7 @@
               <div class="card-container" id="completed-card-container"></div>
             </div>
           </div>
-          <h2 style="text-align: right">Trello Board</h2>
+          <p id="board-title" style="text-align: right">Trello Board</p>
         </div>
       </div>
       <!-- If you decide to go with the first commit you might want to comment out this area  -->

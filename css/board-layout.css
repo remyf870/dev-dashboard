@@ -1,1 +1,103 @@
 /* css/board-layout.css */
+#board-container {
+  display: block;
+  width: 80%;
+  justify-self: center;
+  margin-top: 3em;
+}
+
+#board-container > p {
+  margin-bottom: 1em;
+  font-size: 2em;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.1);
+  font-weight: 200;
+}
+.board {
+  background-color: var(--cont-bg-light);
+  border-radius: 20px;
+  width: 100vh;
+  height: 50vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 2px;
+  box-shadow: 0 4px 4px hsla(0, 0%, 0%, 0.25);
+}
+.heading-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px 20px 0px 0px;
+  background-color: var(--title-bg-light);
+  height: 4em;
+}
+.board .heading-bg > p {
+  font-size: 2rem;
+  font-weight: 400;
+  padding: 2px;
+  color: black;
+}
+
+.row-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+#taskModal form {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  width: 200px;
+  padding: 20px 20px 40px 20px;
+  margin: 20px;
+  border: 2px solid white;
+  align-items: center;
+  background-color: black;
+  justify-self: center;
+  color: white;
+}
+
+#addModal {
+  margin-top: 16px;
+  width: 100px;
+  align-self: center;
+}
+
+.task-card {
+  margin: 2px 5px 2px 5px;
+  color: black;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  position: relative;
+  padding: 16px;
+  transition: all 0.2s ease-in-out;
+  cursor: grab;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+}
+
+.delete-button {
+  background-color: black;
+  border: 2px solid white;
+  border-radius: 20px;
+  color: white;
+  margin: 2px;
+  padding: 1px;
+  font-size: 10px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.delete-button:hover {
+  cursor: pointer;
+}
+
+.card-container {
+  flex-grow: 1;
+}

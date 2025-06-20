@@ -1,1 +1,189 @@
 /* css/components.css */
+/* nav UI */
+.navbar {
+  width: 100%;
+  background: #f1f1f1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+.navbar-header {
+  text-align: center;
+  padding: 18px 0 5px 0;
+}
+.navbar-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-family: "Electrolize", Arial, sans-serif;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: #ddd;
+  padding: 4px 24px;
+}
+nav {
+  display: flex;
+  gap: 24px;
+}
+nav a {
+  color: #181818;
+  text-decoration: none;
+  font-size: 1rem;
+  padding-bottom: 2px;
+  transition: border 0.2s, color 0.2s;
+}
+.nav-link {
+  text-decoration: none; /* default no underline */
+  color: black;
+}
+
+.nav-link.active {
+  text-decoration: underline;
+  text-decoration-color: rgb(0, 0, 0);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+nav a:hover {
+  color: #515151;
+}
+
+#add-task {
+  color: #181818;
+  background: none;
+  font-size: 1rem;
+  padding-bottom: 2px;
+  transition: border 0.2s, color 0.2s;
+  padding: 0.25em 1em;
+  border: none;
+}
+
+#add-task:hover {
+  color: #515151;
+  cursor: pointer;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.icon-btn {
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 12px;
+  padding: 2px 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.icon-btn.rainbow {
+  width: 32px;
+  height: 26px;
+  background: linear-gradient(
+    90deg,
+    #ff004c,
+    #fffc00,
+    #00ff87,
+    #0050ff,
+    #9d00ff
+  );
+  border: none;
+  border-radius: 50px;
+}
+.logout-btn {
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 2px 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.logout-btn i {
+  font-size: 1rem;
+}
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    139deg,
+    rgba(252, 176, 69, 1) 23%,
+    rgba(253, 29, 29, 1) 47%,
+    rgba(253, 29, 29, 1) 63%
+  );
+  transition: background 0.4s;
+  border-radius: 30px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 2px;
+  bottom: 2px;
+  background: #fff;
+  transition: transform 0.4s;
+  border-radius: 50%;
+}
+
+.theme-switch input:checked + .slider {
+  background: linear-gradient(
+    51deg,
+    rgba(10, 8, 128, 1) 0%,
+    rgba(12, 0, 186, 1) 46%
+  );
+}
+
+.theme-switch input:checked + .slider::before {
+  transform: translateX(30px);
+}
+
+.icon-container {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s, opacity 0.2s;
+}
+
+.theme-switch input:checked + .slider .icon-container {
+  transform: translateX(30px);
+}
+
+#themeIcon img {
+  width: 20px;
+  height: 20px;
+}
