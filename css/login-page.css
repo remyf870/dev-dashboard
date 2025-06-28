@@ -122,10 +122,6 @@ input[type="checkbox"] {
 }
 
 @media (max-width: 480px) {
-  body {
-    padding: 1rem 0;
-  }
-
   #site-name {
     font-size: 1.5rem;
     margin-top: 0.5rem;

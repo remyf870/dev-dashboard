@@ -1,21 +1,40 @@
 /* css/board-layout.css */
-#board-container {
+#boards-container {
   display: block;
-  width: 80%;
+  width: 100%;
   justify-self: center;
-  margin-top: 3em;
 }
 
-#board-container > p {
+#board-title {
+  margin-right: 6em;
   margin-bottom: 1em;
   font-size: 2em;
   font-style: italic;
   color: rgba(0, 0, 0, 0.1);
   font-weight: 200;
+  text-align: right;
 }
+
+#trello {
+  width: 80%;
+  margin-top: 2em;
+}
+/* Whiteboard Styles */
+#whiteboard-container {
+  width: 100%;
+  height: 80vh;
+}
+
+#whiteboard {
+  background: #fff;
+  border: none;
+  width: inherit;
+  height: inherit;
+}
+
 .board {
-  background-color: var(--cont-bg-light);
-  border-radius: 20px;
+  background-color: var(--cont-bg);
+  border-radius: 10px;
   width: 100vh;
   height: 50vh;
   text-align: center;
@@ -29,75 +48,286 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px 20px 0px 0px;
-  background-color: var(--title-bg-light);
+  border-radius: 10px 10px 0px 0px;
+  background: var(--accent-color);
   height: 4em;
+  width: 100%;
+  color: white;
+  text-align: center;
 }
 .board .heading-bg > p {
   font-size: 2rem;
   font-weight: 400;
   padding: 2px;
-  color: black;
+  color: rgb(255, 255, 255);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .row-wrapper {
   display: flex;
   flex-direction: row;
-}
-#taskModal form {
-  display: none;
-  flex-direction: column;
-  gap: 8px;
-  width: 200px;
-  padding: 20px 20px 40px 20px;
-  margin: 20px;
-  border: 2px solid white;
-  align-items: center;
-  background-color: black;
   justify-self: center;
+}
+
+#taskModal {
+  height: 100vh; /* hidden by default */
+  position: fixed; /* stays in place even when scrolling */
+  inset: 0; /* shorthand for top: 0; right: 0; bottom: 0; left: 0; */
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent background overlay */
+  justify-content: center; /* center horizontally */
+  align-items: center; /* center vertically */
+  z-index: 9999; /* make sure it’s above everything else */
+}
+
+#submit-data {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--modal-bg);
   color: white;
 }
 
-#addModal {
-  margin-top: 16px;
-  width: 100px;
-  align-self: center;
+#submit-data > h2 {
+  margin-top: 1em;
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.modal-content > input {
+  width: 60%;
+  height: 3em;
+  padding-left: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--trans-white);
+}
+.modal-content > input::placeholder {
+  color: white;
+}
+
+#add-task-form-btn {
+  background: white;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--modal-bg);
+}
+#add-task-form-btn:hover {
+  cursor: pointer;
 }
 
 .task-card {
-  margin: 2px 5px 2px 5px;
+  margin: 0.5em auto;
   color: black;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
   position: relative;
   padding: 16px;
   transition: all 0.2s ease-in-out;
   cursor: grab;
+  border-radius: 10px;
+  width: 80%;
+  text-align: left;
 }
 
 .task-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: grab;
 }
 
 .delete-button {
-  background-color: black;
-  border: 2px solid white;
-  border-radius: 20px;
-  color: white;
-  margin: 2px;
-  padding: 1px;
-  font-size: 10px;
+  background: none;
+  height: 1.8em;
+  width: 1.8em;
   position: absolute;
   top: 8px;
-  right: 8px;
+  right: 20px;
+  border: none;
 }
 
 .delete-button:hover {
   cursor: pointer;
 }
 
+.deleteButton {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.deleteButton svg {
+  width: 44%;
+}
+.deleteButton:hover {
+  background-color: var(--accent-color);
+  overflow: visible;
+}
+.bin path {
+  transition: all 0.2s;
+}
+.deleteButton:hover .bin path {
+  fill: #fff;
+}
+.deleteButton:active {
+  transform: scale(0.98);
+}
+.tooltip {
+  --tooltip-color: rgb(41, 41, 41);
+  position: absolute;
+  top: -40px;
+  background-color: var(--tooltip-color);
+  color: white;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 8px 12px;
+  font-weight: 600;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.105);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.tooltip::before {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  content: "";
+  background-color: var(--tooltip-color);
+  bottom: -10%;
+}
+.deleteButton:hover .tooltip {
+  opacity: 1;
+}
+/* task details modal */
+#details-modal-form {
+  background: var(--modal-bg);
+  color: white;
+  padding: 4em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  border-radius: 20px;
+}
+#close-task-details-btn {
+  background: none;
+  border: none;
+  width: 20px;
+  height: 20px;
+  align-self: right;
+}
+#close-task-details-btn:hover {
+  cursor: pointer;
+}
+/* Delete Task Modal */
+#delete-modal {
+  display: none;
+  position: fixed;
+  inset: 0px;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  color: rgb(0, 0, 0);
+}
+
+/* From Uiverse.io by andrew-demchenk0 */
+.error {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  width: 320px;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  background: var(--modal-bg);
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px -3px #111;
+}
+
+.error__icon {
+  width: 20px;
+  height: 20px;
+  transform: translateY(-2px);
+  margin-right: 8px;
+}
+
+.error__icon path {
+  fill: #fff;
+}
+
+.error__title {
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+}
+
+.error__close {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.error__close path {
+  fill: #fff;
+}
+.inline-btns {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 2px;
+}
+
+#confirm-delete-btn:hover svg,
+#cancel-delete-btn:hover svg {
+  cursor: pointer;
+  background-color: var(--hover);
+  box-shadow: none;
+  transform: scale(1.05);
+  border-radius: 50%;
+}
+
 .card-container {
   flex-grow: 1;
+}
+
+@media (max-width: 700px) {
+  .row-wrapper {
+    flex-direction: row; /* force row layout on small screens */
+    flex-wrap: wrap; /* allow boards to wrap if needed */
+    justify-content: center;
+  }
+
+  .board {
+    width: 90vw; /* or 100%, or whatever fits nicely on small screens */
+    margin: 0.5em;
+  }
+  #submit-data {
+    width: 80%;
+  }
 }
